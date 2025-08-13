@@ -25,10 +25,10 @@ export default function AboutPage() {
         viewport={{ once: true }}
       >
         <p>
-          Hi, I’m Swetha — a passionate developer with expertise in Python, Java,
-          SQL, MongoDB, AI, Machine Learning, and Web Development. I love solving
-          problems creatively and building applications that have real-world
-          impact.
+          Hi, I&apos;m Swetha — a passionate developer with expertise in Python,
+          Java, SQL, MongoDB, AI, Machine Learning, and Web Development. I love
+          solving problems creatively and building applications that have
+          real-world impact.
         </p>
         <p>
           I have hands-on experience developing AI-powered solutions, building
@@ -37,8 +37,8 @@ export default function AboutPage() {
           processing tools.
         </p>
         <p>
-          I’m eager to contribute my skills to projects that challenge me and
-          allow me to grow as a developer.
+          I&apos;m eager to contribute my skills to projects that challenge me
+          and allow me to grow as a developer.
         </p>
       </motion.div>
     </main>

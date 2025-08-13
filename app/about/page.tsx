@@ -31,8 +31,9 @@ export default function AboutPage() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.4 }}
       >
-        Hi, I’m Swetha 👋 — a passionate AI & Web Developer who loves crafting
-        user-friendly and impactful solutions using modern technologies.
+        Hi, I&apos;m Swetha 👋 — a passionate AI &amp; Web Developer who loves
+        crafting user-friendly and impactful solutions using modern
+        technologies.
       </motion.p>
 
       {/* Profile Section */}

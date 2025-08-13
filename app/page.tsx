@@ -6,14 +6,17 @@ import profilePic from "@/public/swetha..jpg";
 
 const fadeInUp = (delay = 0) => ({
   hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut", delay } },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: "easeOut", delay },
+  },
 });
 
 export default function HomePage() {
   return (
     <section className="h-screen flex items-center bg-gray-50 dark:bg-gray-900 relative">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10 px-6 w-full">
-
         {/* Profile Image */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
@@ -38,8 +41,14 @@ export default function HomePage() {
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
           className="text-center md:text-left flex flex-col justify-center"
         >
-          <motion.p variants={fadeInUp(0.3)} initial="hidden" animate="show" className="text-lg text-gray-800 dark:text-gray-200">
-            Hi! I'm <span className="font-semibold text-blue-600">Swetha</span> 👋
+          <motion.p
+            variants={fadeInUp(0.3)}
+            initial="hidden"
+            animate="show"
+            className="text-lg text-gray-800 dark:text-gray-200"
+          >
+            Hi! I&apos;m{" "}
+            <span className="font-semibold text-blue-600">Swetha</span> 👋
           </motion.p>
 
           <motion.h2
@@ -48,7 +57,7 @@ export default function HomePage() {
             animate="show"
             className="mt-2 text-4xl md:text-5xl font-bold leading-tight text-gray-900 dark:text-white"
           >
-            AI & Web Developer <br />
+            AI &amp; Web Developer <br />
           </motion.h2>
 
           <motion.p
@@ -57,8 +66,9 @@ export default function HomePage() {
             animate="show"
             className="mt-4 text-gray-600 dark:text-gray-300 max-w-xl"
           >
-            I’m a passionate developer skilled in Python, Java, SQL, MongoDB, AI, Machine Learning,
-            and Web Development — building solutions that create real impact.
+            I&apos;m a passionate developer skilled in Python, Java, SQL,
+            MongoDB, AI, Machine Learning, and Web Development — building
+            solutions that create real impact.
           </motion.p>
 
           {/* Buttons */}
