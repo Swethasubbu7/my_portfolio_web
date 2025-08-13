@@ -1,119 +1,88 @@
-"use client"
+"use client";
 
-import Navbar from "./components/Navbar"
-import Image from "next/image"
-import Link from "next/link"
+import { motion } from "framer-motion";
+import Image from "next/image";
+import profilePic from "@/public/swetha..jpg";
 
-export default function Home() {
+const fadeInUp = (delay = 0) => ({
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut", delay } },
+});
+
+export default function HomePage() {
   return (
-    <>
-      <Navbar />
+    <section className="h-screen flex items-center bg-gray-50 dark:bg-gray-900 relative">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10 px-6 w-full">
 
-      <main className="min-h-screen bg-gray-100 dark:bg-gray-900 p-8 flex flex-col items-center pt-24">
         {/* Profile Image */}
-        <div className="relative w-40 h-40 rounded-full overflow-hidden mt-8 shadow-lg">
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="flex-shrink-0 flex justify-center md:justify-start w-full md:w-auto"
+        >
           <Image
-            src="/swetha..jpg"
-            alt="Swetha"
-            fill
-            style={{ objectFit: "cover" }}
+            src={profilePic}
+            alt="Profile picture of Swetha"
+            className="rounded-full border-4 border-blue-600"
+            width={200}
+            height={200}
             priority
           />
-        </div>
+        </motion.div>
 
-        {/* Intro Section */}
-        <section className="max-w-3xl text-center mt-8 mb-16">
-          <h1 className="text-5xl font-bold mb-4 text-gray-900 dark:text-white">
-            Hi, I’m Swetha
-          </h1>
-          <p className="text-xl mb-6 text-gray-700 dark:text-gray-300">
-            A passionate developer who loves building beautiful web experiences.
-          </p>
+        {/* Intro Text */}
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+          className="text-center md:text-left flex flex-col justify-center"
+        >
+          <motion.p variants={fadeInUp(0.3)} initial="hidden" animate="show" className="text-lg text-gray-800 dark:text-gray-200">
+            Hi! I'm <span className="font-semibold text-blue-600">Swetha</span> 👋
+          </motion.p>
 
-          <a
-            href="/Swetha Resume .pdf"
-            download
-            className="inline-block bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition mb-4"
+          <motion.h2
+            variants={fadeInUp(0.5)}
+            initial="hidden"
+            animate="show"
+            className="mt-2 text-4xl md:text-5xl font-bold leading-tight text-gray-900 dark:text-white"
           >
-            Download Resume
-          </a>
+            AI & Web Developer <br />
+          </motion.h2>
 
-          <Link
-            href="/projects"
-            className="inline-block bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition"
+          <motion.p
+            variants={fadeInUp(0.7)}
+            initial="hidden"
+            animate="show"
+            className="mt-4 text-gray-600 dark:text-gray-300 max-w-xl"
           >
-            See My Projects
-          </Link>
-        </section>
+            I’m a passionate developer skilled in Python, Java, SQL, MongoDB, AI, Machine Learning,
+            and Web Development — building solutions that create real impact.
+          </motion.p>
 
-        {/* Education Section */}
-        <section
-          id="education"
-          className="max-w-4xl w-full bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md mb-16"
-        >
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Education</h2>
-          <ul className="space-y-6 text-gray-700 dark:text-gray-300">
-            <li>
-              <p className="font-semibold text-lg">
-                B. Tech Artificial Intelligence and Data Science
-              </p>
-              <p>Kathir College of Engineering</p>
-              <p className="italic text-sm">Pursuing | 7.65 CGPA | May 2022 | Tirupur</p>
-            </li>
-            <li>
-              <p className="font-semibold text-lg">HSC</p>
-              <p>Palaniyammal Municipal GHSS</p>
-              <p className="italic text-sm">85% | May 2020 | Tirupur</p>
-            </li>
-            <li>
-              <p className="font-semibold text-lg">SSLC</p>
-              <p>Vijayapuram GHSS</p>
-              <p className="italic text-sm">85%</p>
-            </li>
-          </ul>
-        </section>
-
-        {/* Certifications Section */}
-        <section
-          id="certifications"
-          className="max-w-4xl w-full bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md mb-16"
-        >
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Certifications</h2>
-          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
-            <li>Gen OpenAI Pretrained Transformer — Infosys Springboard (2025)</li>
-            <li>Java Skilling Program — Smart Yugam Academy (2025)</li>
-            <li>Data Science & Analytics — HP Foundation (2024)</li>
-            <li>Excel Regression Analysis — Great Learning (2024)</li>
-            <li>Introduction to MongoDB — MongoDB (2024)</li>
-          </ul>
-        </section>
-
-        {/* Skills Section */}
-        <section
-          id="skills"
-          className="max-w-4xl w-full bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md mb-16"
-        >
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Technical Skills</h2>
-          <div className="flex flex-wrap gap-4 text-gray-700 dark:text-gray-300">
-            {[
-              "Python",
-              "AI & ML",
-              "SQL",
-              "HTML & CSS",
-              "Tableau",
-              "JavaScript",
-              "Java",
-            ].map((skill) => (
-              <span
-                key={skill}
-                className="bg-blue-200 dark:bg-blue-700 text-blue-900 dark:text-blue-100 rounded-full px-4 py-1 font-medium"
-              >
-                {skill}
-              </span>
-            ))}
-          </div>
-        </section>
-      </main>
-    </>
-  )
+          {/* Buttons */}
+          <motion.div
+            variants={fadeInUp(0.9)}
+            initial="hidden"
+            animate="show"
+            className="mt-6 flex gap-4 justify-center md:justify-start"
+          >
+            <a
+              href="/contact"
+              className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition"
+            >
+              Contact Me →
+            </a>
+            <a
+              href="/Swetha Resume .pdf"
+              className="border border-gray-400 dark:border-gray-500 px-6 py-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+            >
+              My Resume 📄
+            </a>
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
 }

@@ -1,156 +1,105 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { useTheme } from "next-themes"
-import Link from "next/link"
+import Image from "next/image";
+import Link from "next/link";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "next-themes";
 
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
-  const { setTheme, resolvedTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
+const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => setMounted(true), [])
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  const links = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Contact", href: "/contact" },
-  ]
+  if (!mounted) return null; // prevents hydration issues
 
   return (
-    <nav className="bg-gray-900 dark:bg-gray-800 text-white p-5 flex justify-between items-center relative">
-      <div className="text-xl font-bold">Swetha S</div>
-
-      <div className="hidden md:flex space-x-6 items-center">
-        {links.map(({ name, href }) => (
-          <Link key={name} href={href} onClick={() => setIsOpen(false)}>
-            <span className="cursor-pointer hover:text-blue-400">{name}</span>
-          </Link>
-        ))}
-
-        {mounted && (
-          <button
-            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-            aria-label="Toggle Dark Mode"
-            className="ml-6 p-2 rounded hover:bg-gray-700"
-          >
-            {resolvedTheme === "dark" ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-yellow-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 3v1m0 16v1m8.66-9h-1M4.34 12h-1m15.02 6.36l-.7-.7M6.34 6.34l-.7-.7m12.02 12.02l-.7-.7M6.34 17.66l-.7-.7M12 7a5 5 0 100 10 5 5 0 000-10z"
-                />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-gray-200"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"
-                />
-              </svg>
-            )}
-          </button>
-        )}
+    <>
+      <div className="fixed top-0 right-0 w-11/12 -z-10 translate-y-[-80%]">
+        <Image
+          src="/header-bg-color.png"
+          alt=""
+          width={1200}
+          height={200}
+          className="w-full"
+        />
       </div>
 
-      <button
-        className="md:hidden focus:outline-none"
-        aria-label="Toggle menu"
-        onClick={() => setIsOpen(!isOpen)}
+      <motion.nav
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="w-full fixed px-5 lg:px-8 xl:px-[8%] py-4 flex items-center justify-between z-50 bg-transparent"
       >
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d={
-              isOpen
-                ? "M6 18L18 6M6 6l12 12"
-                : "M4 6h16M4 12h16M4 18h16"
-            }
-          />
-        </svg>
-      </button>
+        <Link href="/" className="text-2xl font-bold text-blue-600 hover:text-blue-800 transition">
+          Swetha
+        </Link>
 
-      {isOpen && (
-        <div className="absolute top-16 left-0 w-full bg-gray-900 dark:bg-gray-800 flex flex-col md:hidden z-10">
-          {links.map(({ name, href }) => (
-            <Link key={name} href={href} onClick={() => setIsOpen(false)}>
-              <span className="p-4 border-b border-gray-700 cursor-pointer hover:text-blue-400">
-                {name}
-              </span>
-            </Link>
-          ))}
+        <ul className="hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3 bg-white shadow-sm bg-opacity-50 dark:bg-gray-800">
+          <li><Link href="/">Home</Link></li>
+          <li><Link href="/about">About</Link></li>
+          <li><Link href="/services">Services</Link></li>
+          <li><Link href="/work">Work</Link></li>
+          <li><Link href="/contact">Contact</Link></li>
+        </ul>
 
-          {mounted && (
-            <button
-              onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-              aria-label="Toggle Dark Mode"
-              className="p-4 text-left hover:text-blue-400 flex items-center space-x-2"
-            >
-              {resolvedTheme === "dark" ? (
-                <>
-                  <span>Light Mode ☀️</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-yellow-400"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 3v1m0 16v1m8.66-9h-1M4.34 12h-1m15.02 6.36l-.7-.7M6.34 6.34l-.7-.7m12.02 12.02l-.7-.7M6.34 17.66l-.7-.7M12 7a5 5 0 100 10 5 5 0 000-10z"
-                    />
-                  </svg>
-                </>
-              ) : (
-                <>
-                  <span>Dark Mode 🌙</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-gray-200"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"
-                    />
-                  </svg>
-                </>
-              )}
-            </button>
-          )}
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+            className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+          >
+            <Image
+              src={theme === "light" ? "/moon_icon.png" : "/sun_icon.png"}
+              alt="Theme Toggle"
+              width={20}
+              height={20}
+            />
+          </button>
+
+          <Link
+            href="/contact"
+            className="hidden lg:flex items-center gap-3 px-6 py-2.5 border border-gray-500 rounded-full font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+          >
+            Contact
+            <Image src="/arrow-icon.png" alt="Arrow" width={12} height={12} />
+          </Link>
+
+          <button onClick={() => setIsMenuOpen(true)} className="block md:hidden ml-3">
+            <Image src="/menu-black.png" alt="Menu" width={20} height={20} />
+          </button>
         </div>
-      )}
-    </nav>
-  )
-}
+      </motion.nav>
+
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.ul
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="flex md:hidden flex-col gap-6 py-20 px-10 fixed right-0 top-0 bottom-0 w-64 z-50 h-screen bg-white dark:bg-gray-900 shadow-lg"
+          >
+            <div
+              className="absolute right-6 top-6 cursor-pointer"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <Image src="/close-black.png" alt="Close" width={20} height={20} />
+            </div>
+
+            <li><Link href="/" onClick={() => setIsMenuOpen(false)}>Home</Link></li>
+            <li><Link href="/about" onClick={() => setIsMenuOpen(false)}>About</Link></li>
+            <li><Link href="/services" onClick={() => setIsMenuOpen(false)}>Services</Link></li>
+            <li><Link href="/work" onClick={() => setIsMenuOpen(false)}>Work</Link></li>
+            <li><Link href="/contact" onClick={() => setIsMenuOpen(false)}>Contact</Link></li>
+          </motion.ul>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
+
+export default Navbar;

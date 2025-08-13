@@ -1,33 +1,16 @@
-import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
-import { ThemeProvider } from "next-themes"
-import "./globals.css"
+import "./globals.css";
+import Navbar from "./components/Navbar";
+import { ThemeProviders } from "./ThemeProviders";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-})
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-})
-
-export const metadata: Metadata = {
-  title: "Swetha's Portfolio",
-  description: "Swetha's personal portfolio website",
-}
-
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ThemeProvider attribute="class" enableSystem={false} defaultTheme="light">
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <ThemeProviders>
+          <Navbar />
           {children}
-        </ThemeProvider>
+        </ThemeProviders>
       </body>
     </html>
-  )
+  );
 }
