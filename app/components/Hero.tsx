@@ -1,11 +1,20 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants, type Transition } from "framer-motion";
 import Image from "next/image";
 
-const fadeInUp = (delay = 0) => ({
+// ✅ Typed fadeInUp function for Framer Motion
+const fadeInUp = (delay = 0): Variants => ({
   hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut", delay } },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: "easeOut" , // Type-safe fix
+      delay,
+    },
+  },
 });
 
 export default function Hero() {
@@ -59,7 +68,8 @@ export default function Hero() {
             animate="show"
             className="text-lg text-gray-700 dark:text-gray-300"
           >
-            Proficient in Python, AI/ML, Java, SQL, and Web Development. I build functional, elegant solutions powered by data and intelligence.
+            Proficient in Python, AI/ML, Java, SQL, and Web Development. I build
+            functional, elegant solutions powered by data and intelligence.
           </motion.p>
         </motion.div>
       </div>
